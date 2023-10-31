@@ -1,6 +1,7 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
+import morgan from "morgan";
 
 dotenv.config();
 const app = express();
@@ -8,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 const prisma = new PrismaClient();
 
 app.use(express.json());
+app.use(morgan());
 
 app.get("/", (request, response) => {
     response.status(200).send({
