@@ -70,6 +70,31 @@ app.post("/books", async (request, response) => {
     }
 });
 
+app.put("/books/:id", async (request, response) => {
+    try {
+        const { id } = request.params;
+        const { body } = request;
+
+        const updatedBook = await prisma.books.update({
+            where: { id: Number(id) },
+            data: { ...body },
+        });
+
+        if (!updatedBook)
+            response.status(404).send({
+                message: "Resource not found.",
+            });
+
+        response.status(200).json(updatedBook);
+    } catch (error) {
+        response.status(404).send({
+            message:
+                "Something happened. Try again or contact the service host.",
+            error,
+        });
+    }
+});
+
 app.delete("/books/:id", async (request, response) => {
     try {
         const deletedBook = await prisma.books.delete({
