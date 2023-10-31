@@ -37,7 +37,10 @@ app.get("/books/:id", async (request, response) => {
             },
         });
 
-        console.log(book);
+        if (!book)
+            response.status(404).send({
+                message: "Resource not found.",
+            });
 
         response.status(200).json(book);
     } catch (error) {
