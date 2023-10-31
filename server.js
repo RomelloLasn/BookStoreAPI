@@ -18,7 +18,6 @@ app.get("/", (request, response) => {
 app.get("/books", async (request, response) => {
     try {
         const books = await prisma.books.findMany();
-
         response.status(200).json(books);
     } catch (error) {
         response.status(404).send({
@@ -55,7 +54,6 @@ app.get("/books/:id", async (request, response) => {
 app.post("/books", async (request, response) => {
     try {
         const { body } = request;
-
         const book = await prisma.books.create({
             data: { ...body },
         });
@@ -97,9 +95,10 @@ app.put("/books/:id", async (request, response) => {
 
 app.delete("/books/:id", async (request, response) => {
     try {
+        const { id } = request.params;
         const deletedBook = await prisma.books.delete({
             where: {
-                id: Number(request.params.id),
+                id: Number(id),
             },
         });
 
