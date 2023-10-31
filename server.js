@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.get("/", (request, response) => {
     response.status(200).send({
-        message: "Teretulemast TAK-22 raamatute API rakendusse.",
+        message: "Welcome to TAK22 books API app.",
     });
 });
 
