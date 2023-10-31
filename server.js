@@ -2,10 +2,16 @@ import express from "express";
 import { PrismaClient } from "@prisma/client";
 
 const app = express();
-const PORT = 3000;
+const PORT = env(PORT) || 3000;
 const prisma = new PrismaClient();
 
 app.use(express.json());
+
+app.get("/", (request, response) => {
+    response.status(200).send({
+        message: "Teretulemast TAK-22 raamatute API rakendusse.",
+    });
+});
 
 app.get("/books", async (request, response) => {
     try {
